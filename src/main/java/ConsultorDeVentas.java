@@ -21,9 +21,10 @@ public class ConsultorDeVentas {
     }
 
     public BigDecimal getGananciasDe(LocalDate fecha) {
-        BigDecimal ganancia = BigDecimal.ZERO;
-        this.filtrarVentasPorFecha(fecha).stream().forEach(ventaFiltrada -> ganancia.add(ventaFiltrada.precioFinal()));
-        return ganancia;
+      return this.filtrarVentasPorFecha(fecha)
+              .stream()
+              .map(venta -> venta.precioFinal())
+              .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     private List<Venta> filtrarVentasPorFecha(LocalDate fecha) {

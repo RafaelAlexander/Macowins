@@ -18,9 +18,9 @@ public class Venta {
     }
 
     public BigDecimal precioFinal(){
-        BigDecimal total = BigDecimal.ZERO;
-        this.prendasVendidas.stream().forEach(prendaVendida->total.add(this.pasoFinalPrecio(prendaVendida)));
-        return total;
+        return this.prendasVendidas.stream()
+                .map(prendaVendida -> this.pasoFinalPrecio(prendaVendida))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     private BigDecimal pasoFinalPrecio(PrendaVendida prendaVendida){
